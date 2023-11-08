@@ -149,4 +149,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Деплой FOODGRAM успешно выполнен! 
+        message: Деплой Foodgram успешно выполнен! 
