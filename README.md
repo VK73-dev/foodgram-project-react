@@ -8,7 +8,8 @@
 [foodgramcom.sytes.net](foodgramcom.sytes.net) / [158.160.1.88](158.160.1.88:8090)
 ```
 # Доступ к админке:
-login - ua-wef@mail.ru pass - 000111
+login - admin@admin.com
+pass - admin0011
 
 # Запуск проекта на сервере:
 Для работы сервиса на сервере должны быть установлены **Docker** и **docker-compose**
