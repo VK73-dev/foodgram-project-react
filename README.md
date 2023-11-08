@@ -5,7 +5,7 @@
 ## Сервис доступен по адресу:
 
 ```
-http://13.250.250.250/
+[foodgramcom.sytes.net](foodgramcom.sytes.net) / [158.160.1.88](158.160.1.88:8090)
 ```
 # Доступ к админке:
 login - ua-wef@mail.ru pass - 000111

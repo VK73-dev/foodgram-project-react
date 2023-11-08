@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 volumes:
   pg_data:
@@ -15,26 +15,19 @@ services:
     image: vk73dev/foodgram_backend
     env_file: .env
     volumes:
-      - static:/static/
-      - media:/media/
-    depends_on:
-      - db
-    restart: always
+      - static:/static
+      - media:/media
   frontend:
     image: vk73dev/foodgram_frontend
+    env_file: .env
     command: cp -r /app/build/. /static/
     volumes:
-      - static:/static/
-    depends_on:
-      - backend
-  nginx:
+      - static:/static
+  gateway:
     image: vk73dev/foodgram_nginx
-    ports:
-      - 8080:80
+    env_file: .env
     volumes:
       - static:/static/
-      - media:/media/
-    depends_on:
-      - backend
-      - frontend
-    restart: always
+      - media:/media
+    ports:
+      - 8090:80
