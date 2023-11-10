@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from .validators import username_validator
+from users.validators import username_validator
 
 MAX_LENGTH_NAME = 150
 MAX_LENGTH_EMAIL = 254

@@ -1,6 +1,7 @@
 from django_filters import rest_framework as filter
-from recipes.models import Recipe, Tag
 from rest_framework.filters import SearchFilter
+
+from recipes.models import Recipe, Tag
 
 
 class IngredientFilter(SearchFilter):
@@ -25,11 +26,11 @@ class RecipeFilter(filter.FilterSet):
         fields = ('tags', 'author', 'is_favorited', 'is_in_shopping_cart')
 
     def get_favorite(self, queryset, name, value):
-        if value and not self.request.user.is_anonymous:
-            return queryset.filter(favorites__user=self.request.user)
+        if value:
+            return queryset.filter(favorites__user=self.request.user.id)
         return queryset
 
     def get_is_in_shopping_cart(self, queryset, name, value):
-        if value and not self.request.user.is_anonymous:
-            return queryset.filter(shopping_cart__user=self.request.user)
+        if value:
+            return queryset.filter(shopping_cart__user=self.request.user.id)
         return queryset

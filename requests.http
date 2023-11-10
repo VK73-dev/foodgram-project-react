@@ -1,0 +1,32 @@
+GET http://127.0.0.1:8000/api/users/sub/
+Content-Type: application/json
+
+###
+GET http://127.0.0.1:8000/api/v1/follow/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg5Mzk3NzE0LCJqdGkiOiJhZDFhNmNmNTU5MGE0NWE0OTA0NzM2OGE2ZTQwMGIxZiIsInVzZXJfaWQiOjF9.PZPOZppF_NRY-amnkZ2W5ROtOJH2dXncHzpjzrDCOgs
+
+###
+POST http://127.0.0.1:8000/api/v1/jwt/create/
+Content-Type: application/json
+
+{
+    "username": "Slava",
+    "password": "123456wer"
+}
+###
+POST http://127.0.0.1:8000/api/v1/jwt/verify/
+Content-Type: application/json
+Authorization: access eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg5MzI3NjMzLCJqdGkiOiIzZjE3NDA0NzdmYzc0NzNiYmFkNjFlNDM4YjhjN2Y3YyIsInVzZXJfaWQiOjF9.4MsNc8gzXE7aYqrqbkvTfSd767KlLSxB4QktPwxP8WU
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg5MzI3NjMzLCJqdGkiOiIzZjE3NDA0NzdmYzc0NzNiYmFkNjFlNDM4YjhjN2Y3YyIsInVzZXJfaWQiOjF9.4MsNc8gzXE7aYqrqbkvTfSd767KlLSxB4QktPwxP8WU"
+}
+###
+POST http://127.0.0.1:8000/cats/
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg4NTQ2NjI1LCJqdGkiOiI2ZTk1Mzk2YWI3NGY0ZmFmOGE3MWU1MWFmNjU2NWNlYSIsInVzZXJfaWQiOjF9.FGsJbY87lnWi8aeGCwRYo0rsccVw5oqDJnkkTXBTVOo
+{
+    
+}
+###

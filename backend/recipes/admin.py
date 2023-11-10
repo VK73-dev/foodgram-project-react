@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Favorite, Ingredient, Recipe, ShoppingCart, Tag
+from recipes.models import Favorite, Ingredient, Recipe, ShoppingCart, Tag
 
 EMPTY_MESSAGE = '-пусто-'
 
@@ -29,14 +29,10 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ('name', 'author__username')
     list_filter = ('tags', )
     empty_value_display = EMPTY_MESSAGE
-    inlines = (
-        IngredientsInLine,
-    )
+    inlines = (IngredientsInLine, )
 
     def count_favorites(self, obj):
-        if Favorite.objects.filter(recipe=obj).exists():
-            return Favorite.objects.filter(recipe=obj).count()
-        return 0
+        return obj.favorites.count()
 
 
 @admin.register(ShoppingCart)

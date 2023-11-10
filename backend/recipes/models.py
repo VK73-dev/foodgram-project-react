@@ -1,10 +1,10 @@
+from colorfield.fields import ColorField
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
 
 User = get_user_model()
 MAX_LENGTH = 200
-MAX_LENGTH_COLOR = 7
 
 
 class Ingredient(models.Model):
@@ -38,10 +38,9 @@ class Tag(models.Model):
         max_length=MAX_LENGTH,
         unique=True,
     )
-    color = models.CharField(
+    color = ColorField(
         'Цвет в HEX',
-        max_length=MAX_LENGTH_COLOR,
-        unique=True,
+        default='#FF0000',
     )
     slug = models.SlugField(
         'Уникальный слаг',
@@ -115,6 +114,8 @@ class RecipeIngredient(models.Model):
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Название рецепта',
+        related_name='recipe_ingredients',
+        null=True,
     )
     ingredient = models.ForeignKey(
         Ingredient,
@@ -143,7 +144,9 @@ class RecipeTag(models.Model):
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        verbose_name='Название рецепта'
+        verbose_name='Название рецепта',
+        related_name='recipe_tags',
+        null=True,
     )
     tag = models.ForeignKey(
         Tag,
@@ -160,51 +163,46 @@ class RecipeTag(models.Model):
         )
 
 
-class ShoppingCart(models.Model):
+class BaseShoppingFavorite(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
-        related_name='shopping_cart',
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         verbose_name='Название рецепта',
-        related_name='shopping_cart',
     )
 
     class Meta:
+        abstract = True
+        ordering = ('user', )
+
+
+class ShoppingCart(BaseShoppingFavorite):
+
+    class Meta(BaseShoppingFavorite.Meta):
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
+        default_related_name = 'shopping_cart'
         constraints = (
             models.UniqueConstraint(
                 fields=('user', 'recipe'),
-                name='user_recipe_unique'
+                name='shoppingcart_unique',
             ),
         )
 
 
-class Favorite(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name='Пользователь',
-        related_name='favorites',
-    )
-    recipe = models.ForeignKey(
-        Recipe,
-        on_delete=models.CASCADE,
-        verbose_name='Название рецепта',
-        related_name='favorites',
-    )
+class Favorite(BaseShoppingFavorite):
 
-    class Meta:
+    class Meta(BaseShoppingFavorite.Meta):
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
+        default_related_name = 'favorites'
         constraints = (
             models.UniqueConstraint(
                 fields=('user', 'recipe'),
-                name='user_favorite_unique',
+                name='favorite_unique',
             ),
         )
