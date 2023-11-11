@@ -39,8 +39,9 @@ class UserSerializer(UserSerializer):
 
     def get_is_subscribed(self, obj):
         request = self.context.get('request')
-        return ((request is None or request.user.is_anonymous)
-                and obj.author.filter(user=request.user.id).exists())
+        if request is None or request.user.is_anonymous:
+            return False
+        return obj.author.filter(user=request.user.id).exists()
 
 
 class IngredientSerializer(serializers.ModelSerializer):
